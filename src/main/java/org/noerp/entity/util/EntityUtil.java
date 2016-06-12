@@ -21,6 +21,7 @@ package org.noerp.entity.util;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -53,6 +55,7 @@ public class EntityUtil {
 
     public static final String module = EntityUtil.class.getName();
 
+    @SafeVarargs
     public static <V> Map<String, V> makeFields(V... args) {
         Map<String, V> fields = new HashMap<String, V>();
         if (args != null) {
@@ -332,6 +335,38 @@ public class EntityUtil {
         }
         return result;
     }
+    
+    /**
+     *returns the values in the order specified after with localized value 
+     *
+     *@param values List of GenericValues
+     *@param orderBy The fields of the named entity to order the query by;
+     *      optionally add a " ASC" for ascending or " DESC" for descending
+     *@param locale Locale use to retrieve localized value
+     *@return List of GenericValue's in the proper order
+     */
+    public static <T extends GenericEntity> List<T> localizedOrderBy(Collection<T> values, List<String> orderBy, Locale locale) {
+        if (values == null) return null;
+        if (values.isEmpty()) return new ArrayList<T>();
+        //force check entity label before order by
+        List<T> localizedValues = new ArrayList<T>();
+        for (T value : values) {
+            T newValue = (T) value.clone();
+            for (String orderByField : orderBy) {
+                if (orderByField.endsWith(" DESC")) {
+                    orderByField= orderByField.substring(0, orderByField.length() - 5);
+                } else if (orderByField.endsWith(" ASC")) {
+                    orderByField= orderByField.substring(0, orderByField.length() - 4);
+                } else if (orderByField.startsWith("-")
+                        || orderByField.startsWith("+")) {
+                    orderByField= orderByField.substring(1, orderByField.length());
+                }
+                newValue.put(orderByField, value.get(orderByField, locale));
+            }
+            localizedValues.add(newValue);
+        }
+        return orderBy(localizedValues, orderBy);
+    }
 
     /**
      *returns the values in the order specified
@@ -343,14 +378,14 @@ public class EntityUtil {
      */
     public static <T extends GenericEntity> List<T> orderBy(Collection<T> values, List<String> orderBy) {
         if (values == null) return null;
-        if (values.size() == 0) return new LinkedList<T>();
+        if (values.isEmpty()) return new ArrayList<T>();
         if (UtilValidate.isEmpty(orderBy)) {
-            List<T> newList = new LinkedList<T>();
+            List<T> newList = new ArrayList<T>();
             newList.addAll(values);
             return newList;
         }
 
-        List<T> result = new LinkedList<T>();
+        List<T> result = new ArrayList<T>();
         result.addAll(values);
         if (Debug.verboseOn()) Debug.logVerbose("Sorting " + values.size() + " values, orderBy=" + orderBy.toString(), module);
         Collections.sort(result, new OrderByList(orderBy));
@@ -362,31 +397,8 @@ public class EntityUtil {
      */
     @Deprecated
     public static List<GenericValue> getRelated(String relationName, List<GenericValue> values) throws GenericEntityException {
+        Debug.logWarning("deprecated method, please replace as suggested in API Java Doc, and link to OFBIZ-6651", GenericValue.getStackTraceAsString());
         return getRelated(relationName, null, values, false);
-    }
-
-    /**
-     * @deprecated use {@link #getRelated(String, Map, List, boolean)}
-     */
-    @Deprecated
-    public static List<GenericValue> getRelatedCache(String relationName, List<GenericValue> values) throws GenericEntityException {
-        return getRelated(relationName, null, values, true);
-    }
-
-    /**
-     * @deprecated use {@link #getRelated(String, Map, List, boolean)}
-     */
-    @Deprecated
-    public static List<GenericValue> getRelatedByAnd(String relationName, Map<String, ? extends Object> fields, List<GenericValue> values) throws GenericEntityException {
-        return getRelated(relationName, fields, values, false);
-    }
-
-    /**
-     * @deprecated use {@link #getRelated(String, Map, List, boolean)}
-     */
-    @Deprecated
-    public static List<GenericValue> getRelatedByAndCache(String relationName, Map<String, ? extends Object> fields, List<GenericValue> values) throws GenericEntityException {
-        return getRelated(relationName, fields, values, true);
     }
 
     public static List<GenericValue> getRelated(String relationName, Map<String, ? extends Object> fields, List<GenericValue> values, boolean useCache) throws GenericEntityException {
@@ -547,6 +559,6 @@ public class EntityUtil {
      * property in <code>general.properties</code> to "Y".</p>
      */
     public static boolean isMultiTenantEnabled() {
-        return "Y".equalsIgnoreCase(UtilProperties.getPropertyValue("general.properties", "multitenant"));
+        return "Y".equalsIgnoreCase(UtilProperties.getPropertyValue("general", "multitenant"));
     }
 }
