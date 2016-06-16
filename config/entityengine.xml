@@ -157,7 +157,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 
     <datasource name="localderby"
             helper-class="org.noerp.entity.datasource.GenericHelperDAO"
-            schema-name="OFBIZ"
+            schema-name="NOERP"
             field-type-name="derby"
             check-on-start="true"
             add-missing-on-start="true"
@@ -190,7 +190,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     </datasource>
     <datasource name="localderbyodbc"
         helper-class="org.noerp.entity.datasource.GenericHelperDAO"
-        schema-name="OFBIZ"
+        schema-name="NOERP"
         field-type-name="derby"
         check-on-start="true"
         add-missing-on-start="true"
@@ -213,7 +213,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     </datasource>
     <datasource name="localderbyolap"
             helper-class="org.noerp.entity.datasource.GenericHelperDAO"
-            schema-name="OFBIZ"
+            schema-name="NOERP"
             field-type-name="derby"
             check-on-start="true"
             add-missing-on-start="true"
@@ -242,7 +242,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     </datasource>
     <datasource name="localderbytenant"
         helper-class="org.noerp.entity.datasource.GenericHelperDAO"
-        schema-name="OFBIZ"
+        schema-name="NOERP"
         field-type-name="derby"
         check-on-start="true"
         add-missing-on-start="true"
