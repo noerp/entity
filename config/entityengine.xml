@@ -331,8 +331,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             alias-view-columns="false"
             drop-fk-use-foreign-key-keyword="true"
             table-type="InnoDB"
-            character-set="latin1"
-            collate="latin1_general_cs">
+            character-set="utf8"
+            collate="utf8_general_ci">
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
         <read-data reader-name="seed-initial"/>
@@ -342,7 +342,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext-demo"/>
         <inline-jdbc
                 jdbc-driver="com.mysql.jdbc.Driver"
-                jdbc-uri="jdbc:mysql://127.0.0.1/noerp?autoReconnect=true"
+                jdbc-uri="jdbc:mysql://127.0.0.1/noerp?autoReconnect=true&amp;useSSL=false"
                 jdbc-username="noerp"
                 jdbc-password="noerp"
                 isolation-level="ReadCommitted"
@@ -364,8 +364,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             alias-view-columns="false"
             drop-fk-use-foreign-key-keyword="true"
             table-type="InnoDB"
-            character-set="latin1"
-            collate="latin1_general_cs">
+            character-set="utf8"
+            collate="utf8_general_ci">
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
         <read-data reader-name="seed-initial"/>
@@ -375,7 +375,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext-demo"/>
         <inline-jdbc
                 jdbc-driver="com.mysql.jdbc.Driver"
-                jdbc-uri="jdbc:mysql://127.0.0.1/noerp_olap?autoReconnect=true"
+                jdbc-uri="jdbc:mysql://127.0.0.1/noerp_olap?autoReconnect=true&amp;useSSL=false"
                 jdbc-username="noerp"
                 jdbc-password="noerp"
                 isolation-level="ReadCommitted"
@@ -397,8 +397,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             alias-view-columns="false"
             drop-fk-use-foreign-key-keyword="true"
             table-type="InnoDB"
-            character-set="latin1"
-            collate="latin1_general_cs">
+            character-set="utf8"
+            collate="utf8_general_ci">
         <read-data reader-name="tenant"/>
         <read-data reader-name="seed"/>
         <read-data reader-name="seed-initial"/>
@@ -408,7 +408,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext-demo"/>
         <inline-jdbc
                 jdbc-driver="com.mysql.jdbc.Driver"
-                jdbc-uri="jdbc:mysql://127.0.0.1/noerp_tenant?autoReconnect=true"
+                jdbc-uri="jdbc:mysql://127.0.0.1/noerp_tenant?autoReconnect=true&amp;useSSL=false"
                 jdbc-username="noerp"
                 jdbc-password="noerp"
                 isolation-level="ReadCommitted"
