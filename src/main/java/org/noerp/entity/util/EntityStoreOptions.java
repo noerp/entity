@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.entity.util;
+package org.noerp.entity.util;
 
 /**
  * Contains a number of variables used to select certain advanced options for storing GenericEntities.
