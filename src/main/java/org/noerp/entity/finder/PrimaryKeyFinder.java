@@ -156,7 +156,9 @@ public class PrimaryKeyFinder extends Finder {
                     }
                 }
             } else {
-                if (Debug.infoOn()) Debug.logInfo("Returning null because found incomplete primary key in find: " + entityPK, module);
+                if (Debug.infoOn()){ 
+                	Debug.logInfo("Returning null because found incomplete primary key in find: " + entityPK, module);
+                }
             }
 
             return valueOut;
